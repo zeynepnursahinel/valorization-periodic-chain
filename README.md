@@ -1,4 +1,4 @@
-# Periodic SSH Chain – Master Thesis Valorization Codegit 
+# Periodic SSH Chain – Master Thesis Valorization Code 
 
 This repository contains numerical and analytical calculations 
 for the periodic Su-Schrieffer-Heeger (SSH) model developed 
