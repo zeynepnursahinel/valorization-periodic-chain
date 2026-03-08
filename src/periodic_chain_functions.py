@@ -1002,7 +1002,6 @@ def plot_lambda_critical_asymptotics(
     else:
         plt.close()
     
-
 def plot_lambda_critical_fit_asymptotics(
     csv_path,
     lambda_col="lambda_c1",
