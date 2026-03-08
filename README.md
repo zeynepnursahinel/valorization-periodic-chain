@@ -1,5 +1,5 @@
 # Entanglement Phase Transitions in the SSH Model at Finite Temperature
-![Entanglement Phase Diagram](figures/periodic/fig_10_entanglement_phase_diagram.pdf)
+![Entanglement Phase Diagram](figures/periodic/fig_10_entanglement_phase_diagram.png)
 
 
 Numerical study of finite-temperature entanglement transitions in the Su–Schrieffer–Heeger (SSH) model using correlation matrix methods.
