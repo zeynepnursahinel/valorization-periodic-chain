@@ -12,72 +12,36 @@ This work was developed as part of the MSc thesis:
 
 **“Entanglement Phase Transitions in 1D Topological Insulators”**
 
----
-
-# Physical Model
-
-We study the SSH Hamiltonian
-
-\[
-H(k) =
-\begin{pmatrix}
-0 & h(k) \\
-h^*(k) & 0
-\end{pmatrix}
-\]
-
-with
-
-\[
-h(k) = 1 + \lambda e^{-ik}
-\]
-
-where
-
-- \( \lambda \) is the dimerization parameter  
-- \( k \) is the crystal momentum  
-- \( \beta = 1/T \) is the inverse temperature  
-
-Using the correlation matrix formalism, we compute two–site reduced density matrices and evaluate entanglement quantities such as **concurrence** and **Bell inequality violation**.
-
-The main objective is to determine the **critical dimerization values**
-
-\[
-\lambda_c(\beta)
-\]
-
-that characterize entanglement phase transitions as temperature varies.
 
 ---
 
-# Repository Structure
+## Repository Structure
 
-sahinel_valorization_codes/
+The repository is organized as follows:
 
-├── src/
-│ ├── init.py
-│ └── periodic_chain_functions.py
-│ Core numerical routines implementing the SSH model and entanglement calculations.
+- **src/**
+  - `periodic_chain_functions.py`  
+  Core numerical routines implementing the SSH model and entanglement calculations.
 
-├── notebooks/
-│ └── periodic_chain.ipynb
-│ Main analysis notebook used to run simulations and generate figures.
+- **notebooks/**
+  - `periodic_chain.ipynb`  
+  Main analysis notebook used to run simulations and generate figures.
 
-├── data/
-│ └── periodic/
-│ ├── lambda_critical_vs_beta.csv
-│ └── lambda_critical_bell_vs_beta.csv
-│ Numerical datasets generated during the simulations.
+- **data/periodic/**
+  - `lambda_critical_vs_beta.csv`
+  - `lambda_critical_bell_vs_beta.csv`  
+  Numerical datasets generated during the simulations.
 
-├── figures/
-│ └── periodic/
-│ Collection of publication-quality figures produced from the analysis.
+- **figures/periodic/**  
+  Collection of publication-quality figures produced from the analysis.
 
-├── environment.yml
-│ Conda environment specification required to run the project.
+- **environment.yml**  
+  Conda environment specification required to run the project.
 
-└── README.md
-Project documentation.
+- **README.md**  
+  Project documentation.
+
+
 
 
 ---
@@ -86,9 +50,7 @@ Project documentation.
 
 The `src` directory contains the main numerical implementations used throughout the project.
 
-The module periodic_chain_functions.py
-
-implements functions for
+The module periodic_chain_functions.py implements functions for
 
 - constructing the SSH Hamiltonian  e  
 - evaluating concurrence  
