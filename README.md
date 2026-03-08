@@ -1,61 +1,157 @@
-# Periodic SSH Chain – Master Thesis Valorization Code 
+# Entanglement Phase Transitions in the SSH Model at Finite Temperature
+![Entanglement Phase Diagram](figures/periodic/fig_10_entanglement_phase_diagram.png)
 
-This repository contains numerical and analytical calculations 
-for the periodic Su-Schrieffer-Heeger (SSH) model developed 
-as part of my Master's thesis research at EPFL.
 
-The project focuses on:
+Numerical study of finite-temperature entanglement transitions in the Su–Schrieffer–Heeger (SSH) model using correlation matrix methods.
 
-- Construction of the SSH Hamiltonian
-- Implementation of periodic boundary conditions
-- Eigenvalue spectrum computation
-- Analytical comparison of numerical results
-- Visualization of energy bands
-- Concurrence Plots
-- Entanglement Phase Transition
+This repository contains the numerical codes used to analyze entanglement properties of the SSH model at finite temperature. The project investigates how bipartite entanglement and Bell nonlocality behave in a one–dimensional topological system as functions of temperature and the dimerization parameter.
+
+The analysis is based on the **correlation matrix formalism for free fermionic systems**, which allows the computation of reduced density matrices and entanglement measures directly from the single-particle Hamiltonian.
+
+This work was developed as part of the MSc thesis:
+
+**“Entanglement Phase Transitions in 1D Topological Insulators”**
 
 ---
 
-## Repository Structure
+# Physical Model
 
-periodic_chain.ipynb   → Main notebook containing calculations and analysis  
-environment.yml       → Conda environment configuration  
-README.md             → Project description  
+We study the SSH Hamiltonian
+
+\[
+H(k) =
+\begin{pmatrix}
+0 & h(k) \\
+h^*(k) & 0
+\end{pmatrix}
+\]
+
+with
+
+\[
+h(k) = 1 + \lambda e^{-ik}
+\]
+
+where
+
+- \( \lambda \) is the dimerization parameter  
+- \( k \) is the crystal momentum  
+- \( \beta = 1/T \) is the inverse temperature  
+
+Using the correlation matrix formalism, we compute two–site reduced density matrices and evaluate entanglement quantities such as **concurrence** and **Bell inequality violation**.
+
+The main objective is to determine the **critical dimerization values**
+
+\[
+\lambda_c(\beta)
+\]
+
+that characterize entanglement phase transitions as temperature varies.
 
 ---
 
-## Requirements
+# Repository Structure
 
-The project was developed using:
+sahinel_valorization_codes/
 
-- Python 3.x
-- NumPy
-- SciPy
-- Matplotlib
+├── src/
+│ ├── init.py
+│ └── periodic_chain_functions.py
+│ Core numerical routines implementing the SSH model and entanglement calculations.
 
-All dependencies are listed in `environment.yml`.
+├── notebooks/
+│ └── periodic_chain.ipynb
+│ Main analysis notebook used to run simulations and generate figures.
 
-To recreate the environment locally: 
+├── data/
+│ └── periodic/
+│ ├── lambda_critical_vs_beta.csv
+│ └── lambda_critical_bell_vs_beta.csv
+│ Numerical datasets generated during the simulations.
 
+├── figures/
+│ └── periodic/
+│ Collection of publication-quality figures produced from the analysis.
+
+├── environment.yml
+│ Conda environment specification required to run the project.
+
+└── README.md
+Project documentation.
+
+
+---
+
+# Core Code (`src/`)
+
+The `src` directory contains the main numerical implementations used throughout the project.
+
+The module periodic_chain_functions.py
+
+implements functions for
+
+- constructing the SSH Hamiltonian  e  
+- evaluating concurrence  
+- computing Bell inequality measures  
+- determining critical dimerization values \( \lambda_c(\beta) \)
+
+These functions form the computational backbone of the analysis.
+
+---
+
+# Notebook
+
+The main notebook notebooks/periodic_chain.ipynb
+
+contains the workflow used in the project:
+
+- generation of numerical datasets  
+- computation of entanglement measures  
+- determination of critical parameters  
+- generation of plots and figures  
+
+---
+
+# Data
+
+The `data/` directory contains CSV files generated from the numerical simulations.
+
+Examples include
+
+- critical dimerization values obtained from concurrence  
+- critical dimerization values obtained from Bell inequality analysis  
+
+These datasets are used to produce the figures and asymptotic fits presented in the study.
+
+---
+
+# Figures
+
+The `figures/` directory contains all figures generated during the analysis, including
+
+- SSH band structure  
+- occupation spectra  
+- concurrence curves for different temperatures  
+- finite-size comparisons  
+- critical parameter curves  
+- entanglement phase diagrams  
+- asymptotic fits of \( \lambda_c(\beta) \)
+
+All figures are stored as ** PDF files**.
+
+---
+
+# Running the Code
+
+To reproduce the environment:
+
+```bash
 conda env create -f environment.yml
-conda activate thesis_python
+conda activate ssh_entanglement
 
+Then open the main notebook
 
-If you prefer using pip:
-
-pip install -r requirements.txt
-
-
----
-
-## Running on Google Colab
-
-You can run this project directly on Google Colab.
-
-Clone the repository:
-!git clone https://github.com/
-<<YOUR_GITHUB_USERNAME>>/<<YOUR_REPOSITORY_NAME>>.git
-%cd <<YOUR_REPOSITORY_NAME>>
-
+notebooks/periodic_chain.ipynb
+to reproduce the numerical analysis and figures.
 
 
