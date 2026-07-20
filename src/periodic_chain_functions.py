@@ -1237,3 +1237,189 @@ def plot_lambda_bell_with_asymptotics(
 
     plt.show()
 
+#########################################
+
+## eta plot functions
+
+def make_figure_eta_vs_lambda_clean(
+    lam_min=-1.0,
+    lam_max=1.0,
+    num=2001,
+    beta=np.inf,
+    ks=KS,
+    savepath=None,
+    show=True,
+):
+    if savepath is None:
+        tag = "T0" if np.isinf(beta) else f"beta{beta:g}"
+        savepath = FIG_DIR / f"fig_eta_clean_{tag}.pdf"
+
+    lams = np.linspace(lam_min, lam_max, num)
+
+    eta0 = np.array([eta_continuum(l, beta=beta, r=0, ks=ks) for l in lams])
+    eta1 = np.array([eta_continuum(l, beta=beta, r=1, ks=ks) for l in lams])
+    deta1 = np.gradient(eta1, lams)
+
+    fig, ax1 = plt.subplots(figsize=(7.2, 4.6))
+    ax2 = ax1.twinx()
+
+    ln1, = ax1.plot(lams, eta0, lw=2.4, color="purple",
+                    label=r"$\eta_0(\lambda)$ intra-cell")
+    ln2, = ax1.plot(lams, eta1, lw=2.4, color="green",
+                    label=r"$\eta_1(\lambda)$ inter-cell")
+    ln3, = ax2.plot(lams, deta1, lw=2.0, color="blue",
+                    label=r"$\partial_\lambda \eta_1$")
+
+    ax1.axhline(ETA_C, ls="--", lw=1.2, color="gray",
+                label=r"$\eta_c=\sqrt{2}-1$")
+    ax1.axvline(0.0, ls="--", lw=1.0, color="black")
+
+    ax1.set_xlabel(r"$\lambda$")
+    ax1.set_ylabel(r"Correlation amplitude $\eta$")
+    ax2.set_ylabel(r"$\partial_\lambda \eta_1$")
+
+    tag = "T=0" if np.isinf(beta) else rf"$\beta={beta:g}$"
+    ax1.set_title(rf"Correlation amplitudes ({tag})")
+
+    lines = [ln1, ln2, ln3]
+    labels = [l.get_label() for l in lines]
+    ax1.legend(lines, labels, frameon=False, loc="upper left")
+
+    plt.tight_layout()
+    fig.savefig(savepath, bbox_inches="tight")
+
+    if show:
+        plt.show()
+
+    return fig, (ax1, ax2)
+
+#### n+ distirbution as a function of lambda and k 
+
+
+def plot_upper_band_occupation_2D(
+    beta=2,
+    nk=500,
+    nlambda=400,
+    savepath=None,
+    show=True,
+):
+
+    # default save path
+    if savepath is None:
+        tag = f"beta{beta:g}"
+        savepath = FIG_DIR / f"fig_upper_band_occupation_2D_{tag}.pdf"
+
+    savepath = Path(savepath).resolve()
+    savepath.parent.mkdir(
+        parents=True,
+        exist_ok=True
+    )
+
+    k_vals = np.linspace(
+        0,
+        2*np.pi,
+        nk
+    )
+
+    lambda_vals = np.linspace(
+        -1,
+        1,
+        nlambda
+    )
+
+    Nmap = np.zeros(
+        (nlambda,nk)
+    )
+
+
+    for i, lam in enumerate(lambda_vals):
+
+        t1 = 1 - lam
+        t2 = 1 + lam
+
+        E = np.sqrt(
+            t1**2
+            + t2**2
+            + 2*t1*t2*np.cos(k_vals)
+        )
+
+        nplus = 1 / (
+            np.exp(beta*E)
+            + 1
+        )
+
+        Nmap[i,:] = nplus
+
+
+    fig, ax = plt.subplots(
+        figsize=(6.5,4.8)
+    )
+
+    im = ax.imshow(
+        Nmap,
+        extent=[
+            0,
+            2*np.pi,
+            -1,
+            1
+        ],
+        origin="lower",
+        aspect="auto"
+    )
+
+
+    cbar = plt.colorbar(im)
+
+    cbar.set_label(
+        r"$n_+(k,\lambda)$"
+    )
+
+
+    ax.set_xlabel(
+        r"$k$"
+    )
+
+    ax.set_ylabel(
+        r"$\lambda$"
+    )
+
+
+    ax.set_xticks(
+        [0,np.pi,2*np.pi]
+    )
+
+    ax.set_xticklabels(
+        [
+            r"$0$",
+            r"$\pi$",
+            r"$2\pi$"
+        ]
+    )
+
+
+    ax.set_title(
+        rf"Upper-band occupation "
+        rf"$n_+(k,\lambda)$ "
+        rf"($\beta={beta}$)"
+    )
+
+
+    plt.tight_layout()
+
+    fig.savefig(
+        savepath,
+        bbox_inches="tight"
+    )
+
+    print(
+        f"saved to:\n{savepath}"
+    )
+
+
+    if show:
+        plt.show()
+
+
+    return fig,ax
+
+    
